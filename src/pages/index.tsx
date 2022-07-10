@@ -1,10 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
+
+import Header from '../components/Header';
+import ViewMaster from '../components/ViewMaster';
+
+import classes from './index.module.css';
 
 const Main: NextPage = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>Hello-Chris</title>
         <meta
@@ -13,8 +17,9 @@ const Main: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      Hello Chris
-    </div>
+      <Header />
+      <ViewMaster className={classes.flexChild} />
+    </>
   );
 };
 
