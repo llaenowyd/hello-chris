@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import markdownContent from '../markdown/message.md';
 import encryptedMarkdownContent from '../markdown/message-input';
 
 import Reader from './Reader';
@@ -12,7 +11,7 @@ const MainView: React.FC = () => {
   const [secretKey, setSecretKey] = useState(
     'EZPMNg19bhjRkn522eX6877hM1F8t/pr7tTIUVDyD1A='
   );
-  const [plaintext, setPlaintext] = useState(() => markdownContent);
+  const [plaintext, setPlaintext] = useState('');
   const [cryptogram, setCryptogram] = useState(() => encryptedMarkdownContent);
 
   return (
