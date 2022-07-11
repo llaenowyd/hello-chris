@@ -1,25 +1,160 @@
-# this is the message title
+# ⚠ Top Secret ⚠
 
-## subtitle
+## This is an example of some kind of private message.
 
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-- Ut gravida dictum euismod. Pellentesque leo lectus, dictum et est sed, dapibus posuere risus.
-- Cras laoreet, tortor nec varius sodales, justo risus rhoncus nisi, tristique aliquam purus ligula at libero.
-- Proin non lectus convallis, bibendum dui ac, porta lacus.
-- Curabitur velit ipsum, tincidunt vel fringilla non, condimentum et tortor. Vivamus posuere dapibus lorem quis pharetra.
+## Emphasis
 
-1. Aliquam aliquet turpis velit, et posuere nisi sagittis pharetra.
-2. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-3. Vestibulum sit amet nulla orci.
-4. Quisque elementum pharetra nulla auctor laoreet.
-5. Aliquam interdum ligula risus, dictum pharetra felis imperdiet non.
-6. Praesent blandit iaculis neque tincidunt commodo.
-7. Proin eu nisi orci.
+**This is bold text**
 
-Proin ac lorem in orci fermentum maximus. Maecenas id diam sit amet ante tristique sagittis sit amet vel tellus. Nunc dictum justo eu leo efficitur gravida. Cras tortor ipsum, sollicitudin vel consectetur eget, dignissim in nunc. Integer placerat blandit placerat. Pellentesque accumsan rhoncus sem ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec egestas sollicitudin dolor quis rhoncus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis, elit vel condimentum pharetra, lacus risus rutrum orci, eget vehicula quam dolor quis justo. Ut non arcu ante. Sed fringilla magna purus, quis hendrerit diam pretium in. Donec eleifend quam felis, pretium tempor magna rutrum vel. Sed dolor massa, tristique eu mi sit amet, ornare rutrum elit. Etiam pharetra, lectus et commodo congue, ligula nisl rhoncus lacus, in viverra elit massa at arcu.
+_This is italic text_
 
-Pellentesque porttitor placerat nunc, tempus tempus orci aliquam non. Aenean commodo sollicitudin diam, eu ultrices elit finibus at. Sed nec leo convallis nisl egestas pellentesque vel id dolor. Etiam auctor leo odio, nec condimentum eros volutpat nec. Fusce at imperdiet sem. Praesent mollis, leo quis rutrum auctor, est turpis tristique diam, ac aliquet turpis lorem non ipsum. Phasellus sed enim arcu. Suspendisse consequat tempor nisl. Nam sagittis, massa et eleifend mattis, magna turpis dignissim tellus, finibus pulvinar mi nisi nec nisi. Fusce porttitor fermentum enim id ullamcorper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis molestie libero vel sapien pulvinar, sed congue urna condimentum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla sit amet lorem at augue faucibus auctor. Integer consectetur gravida velit, ac porta turpis bibendum vel.
+~~Strikethrough~~
 
-Sed ultrices fringilla ex, in euismod nunc laoreet vel. Mauris et est commodo, fermentum turpis et, laoreet est. Donec finibus consequat consectetur. Fusce porttitor egestas lectus, sit amet bibendum arcu placerat et. Nullam mi metus, condimentum ac eleifend sit amet, consequat a neque. Aenean placerat augue leo, interdum mollis diam auctor nec. Vestibulum vitae augue in nibh tempor consequat. Cras ut tellus vulputate, ornare mi ac, vestibulum metus. Suspendisse sodales suscipit diam sed tincidunt. Morbi imperdiet velit eget nunc dictum bibendum. Suspendisse eleifend eros ac rutrum venenatis. Etiam blandit porta sem dignissim porttitor. Nunc ut ante rutrum, fringilla leo sed, aliquam risus.
+## Blockquotes
 
-Nullam tincidunt lacus est, sed ornare nibh aliquet vitae. Nullam feugiat pretium urna, at volutpat quam luctus sit amet. Donec ex nibh, auctor vitae sapien at, rhoncus dapibus leo. Mauris in dolor eget lacus auctor accumsan. Sed viverra lorem justo, a pulvinar libero elementum in. Nam eget bibendum nisl, sit amet dignissim nulla. Praesent mollis urna vitae risus gravida, sed efficitur elit posuere. Sed malesuada imperdiet faucibus. Maecenas et diam non libero semper auctor. Duis ullamcorper libero felis, id euismod est interdum et. Pellentesque vestibulum nisl sit amet ipsum consectetur, vitae egestas est egestas. In hac habitasse platea dictumst. Praesent viverra dui auctor massa placerat, non placerat tortor dictum. Nam neque nulla, imperdiet vestibulum rutrum ut, volutpat sit amet mi. Nullam nisi augue, pretium nec quam eget, venenatis faucibus erat. Duis facilisis, nisl eu mollis laoreet, augue felis luctus enim, eu mattis erat diam eget eros.
+> Blockquotes can also be nested...
+>
+> > ...by using additional greater-than signs right next to each other...
+> >
+> > > ...or with spaces between arrows.
+
+## Lists
+
+Unordered
+
+- Create a list by starting a line with `+`, `-`, or `*`
+- Sub-lists are made by indenting 2 spaces:
+  - Marker character change forces new list start:
+    - Ac tristique libero volutpat at
+    * Facilisis in pretium nisl aliquet
+    - Nulla volutpat aliquam velit
+- Very easy!
+
+Ordered
+
+1. Lorem ipsum dolor sit amet
+2. Consectetur adipiscing elit
+3. Integer molestie lorem at massa
+
+4. You can use sequential numbers...
+5. ...or keep all the numbers as `1.`
+
+Start numbering with offset:
+
+57. foo
+1. bar
+
+## Code
+
+Inline `code`
+
+Indented code
+
+    // Some comments
+    line 1 of code
+    line 2 of code
+    line 3 of code
+
+Block code "fences"
+
+```
+Sample text here...
+```
+
+Syntax highlighting
+
+```js
+var foo = function (bar) {
+  return bar++;
+};
+
+console.log(foo(5));
+```
+
+## Links
+
+[link text](http://dev.nodeca.com)
+
+[link with title](http://nodeca.github.io/pica/demo/ 'title text!')
+
+Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
+
+## Plugins
+
+The killer feature of `markdown-it` is very effective support of
+[syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
+
+### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
+
+> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
+>
+> Shortcuts (emoticons): :-) :-( 8-) ;)
+
+see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
+
+### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
+
+- 19^th^
+- H~2~O
+
+### [\<ins>](https://github.com/markdown-it/markdown-it-ins)
+
+++Inserted text++
+
+### [\<mark>](https://github.com/markdown-it/markdown-it-mark)
+
+==Marked text==
+
+### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
+
+Footnote 1 link[^first].
+
+Footnote 2 link[^second].
+
+Inline footnote^[Text of inline footnote] definition.
+
+Duplicated footnote reference[^second].
+
+[^first]: Footnote **can have markup**
+
+    and multiple paragraphs.
+
+[^second]: Footnote text.
+
+### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
+
+Term 1
+
+: Definition 1
+with lazy continuation.
+
+Term 2 with _inline markup_
+
+: Definition 2
+
+        { some code, part of Definition 2 }
+
+    Third paragraph of definition 2.
+
+_Compact style:_
+
+Term 1
+~ Definition 1
+
+Term 2
+~ Definition 2a
+~ Definition 2b
+
+### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
+
+This is HTML abbreviation example.
+
+It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+
+\*[HTML]: Hyper Text Markup Language
+
+### [Custom containers](https://github.com/markdown-it/markdown-it-container)
+
+::: warning
+_here be dragons_
+:::

@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { useRemark } from 'react-remark';
 
-import markdownContent from '../markdown/message.md';
+import { useReader } from './useReader';
 
-export const useContent = () => {
+export const useContent = (privateKey: string, cryptogram: string): [any] => {
   const [reactContent, setMarkdownSource] = useRemark();
 
-  useEffect(() => {
-    setMarkdownSource(markdownContent);
-  }, []);
+  const [decryption] = useReader(privateKey, cryptogram);
 
-  return reactContent;
+  useEffect(() => {
+    setMarkdownSource(decryption);
+  }, [decryption]);
+
+  return [reactContent];
 };

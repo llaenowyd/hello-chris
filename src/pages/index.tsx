@@ -1,24 +1,18 @@
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import Header from '../components/Header';
-import ViewMaster from '../components/ViewMaster';
 
-import classes from './index.module.css';
+const MainView = dynamic(() => import('../components/MainView'), {
+  ssr: false,
+});
 
 const Main: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Hello-Chris</title>
-        <meta
-          name="description"
-          content="A custom application by Collin Monahan"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Header />
-      <ViewMaster className={classes.flexChild} />
+      {MainView ? <MainView /> : null}
     </>
   );
 };

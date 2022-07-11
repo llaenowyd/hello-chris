@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+.brick {
+  max-width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 50%;
+}
+
+.panels {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  justify-content: space-evenly;
+}
+
+.documentPanel {
+  flex: 1;
+}
+
+.buttonPanel {
+  flex: 0.2;
+}
+
+.cryptoPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+.key {
+  font-size: 50%;
+  font-family: 'Courier New', Courier, monospace;
+}
