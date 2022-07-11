@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
-import { useContentLens } from '../../hooks/useContentLens';
+import { encryptMessage, createKey, exportKey } from '../../util/crypt';
 import { splitEvery } from '../../util/splitEvery';
 
 import classes from './Create.module.css';
@@ -12,6 +12,7 @@ const Create: React.FC<{
   setPrivateKey: (s: string) => void;
   plaintext: string;
   setPlaintext: (s: string) => void;
+  cryptogram: string;
   setCryptogram: (s: string) => void;
 }> = ({
   className,
@@ -19,25 +20,19 @@ const Create: React.FC<{
   setPrivateKey,
   plaintext,
   setPlaintext,
+  cryptogram,
   setCryptogram,
 }) => {
-  const [encrypted, setEncrypted] = useState(false);
-
-  const [decryption, decryption2, encryption, key] = useContentLens(plaintext);
-
-  useEffect(() => {
-    if (plaintext) {
-      setEncrypted(false);
-      setPrivateKey('');
-    }
-  }, [plaintext]);
-
-  useEffect(() => {
-    if (encrypted) {
-      setPrivateKey(key);
-      setCryptogram(encryption);
-    }
-  }, [encrypted]);
+  const doEncrypt = () => {
+    createKey()
+      .then(async (key) => ({ key, keyText: await exportKey(key) }))
+      .then(({ key, keyText }) => {
+        setPrivateKey(keyText);
+        return key;
+      })
+      .then((key) => encryptMessage(key, plaintext))
+      .then(setCryptogram);
+  };
 
   return (
     <div className={classNames(classes.container, className)}>
@@ -52,21 +47,16 @@ const Create: React.FC<{
           </textarea>
         </div>
         <div className={classes.buttonPanel}>
-          <input
-            type="button"
-            value="Encrypt"
-            onClick={() => setEncrypted(true)}
-            disabled={encrypted}
-          />
+          <input type="button" value="Encrypt" onClick={doEncrypt} />
         </div>
         <div className={classes.cryptoPanel}>
           <div>
-            Key: <span className={classes.key}>{encrypted ? key : ''}</span>
+            Key: <span className={classes.key}>{privateKey}</span>
           </div>
           Cryptogram:
           <br />
           <div className={classes.brick}>
-            {splitEvery(encrypted ? encryption : '', 80).map((line, i) => (
+            {splitEvery(cryptogram ?? '', 80).map((line, i) => (
               <React.Fragment key={i}>
                 <span>{line}</span>
                 <br />

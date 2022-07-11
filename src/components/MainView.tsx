@@ -33,6 +33,7 @@ const MainView: React.FC = () => {
           setPrivateKey={setPrivateKey}
           plaintext={plaintext}
           setPlaintext={setPlaintext}
+          cryptogram={cryptogram}
           setCryptogram={setCryptogram}
         />
       </TabPanel>
