@@ -3,16 +3,16 @@ import React from 'react';
 import classes from './Controls.module.css';
 
 const Controls: React.FC<{
-  privateKey: string;
-  setPrivateKey: (s: string) => void;
-}> = ({ privateKey, setPrivateKey }) => {
+  secretKey: string;
+  setSecretKey: (s: string) => void;
+}> = ({ secretKey, setSecretKey }) => {
   return (
     <div className={classes.container}>
       🔑
       <input
         type="text"
-        value={privateKey}
-        onChange={(ev) => setPrivateKey(ev.target.value)}
+        value={secretKey}
+        onChange={(ev) => setSecretKey(ev.target.value)}
       />
     </div>
   );

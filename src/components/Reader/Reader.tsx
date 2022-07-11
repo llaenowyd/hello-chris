@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
+import { useDecryptEffect } from '../../hooks/useDecryptEffect';
+import { useMarkdown } from '../../hooks/useMarkdown';
 import Controls from './Controls';
-import Viewport from './Viewport';
 
 import classes from './Reader.module.css';
 
 const Reader: React.FC<{
   className?: string;
-  privateKey: string;
-  setPrivateKey: (s: string) => void;
   cryptogram: string;
-}> = ({ className, privateKey, setPrivateKey, cryptogram }) => {
+  secretKey: string;
+  setSecretKey: (s: string) => void;
+  plaintext: string;
+  setPlaintext: (s: string) => void;
+}> = ({
+  className,
+  cryptogram,
+  secretKey,
+  setSecretKey,
+  plaintext,
+  setPlaintext,
+}) => {
+  useDecryptEffect(cryptogram, secretKey, setPlaintext);
+
+  const markdown = useMarkdown(plaintext);
+
   return (
     <div className={classNames(classes.container, className)}>
-      <Controls privateKey={privateKey} setPrivateKey={setPrivateKey} />
-      <Viewport privateKey={privateKey} cryptogram={cryptogram} />
+      <Controls secretKey={secretKey} setSecretKey={setSecretKey} />
+      <div className={classes.markdown}>{markdown}</div>
     </div>
   );
 };

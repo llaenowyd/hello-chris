@@ -1,6 +1,6 @@
 # ⚠ Top Secret ⚠
 
-## This is an example of some kind of private message.
+## This is intended to represent a confidential message.
 
 ## Emphasis
 

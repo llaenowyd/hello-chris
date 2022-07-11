@@ -1,6 +1,6 @@
 # hello-chris
 
-This project demonstrates browser-based, private-key encryption
+This project demonstrates browser-based, secret-key encryption
 and decryption using the [SubtleCrypto Web API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto).
 
 ## Instructions
