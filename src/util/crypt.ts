@@ -2,6 +2,9 @@ import { algoParams } from './algoParams';
 import { arrayBufferToBase64, base64ToArrayBuffer } from './base64';
 import { bufferToString, stringToBuffer } from './buffers';
 
+export const createNonce = (numBytes = 12): ArrayBuffer =>
+  crypto.getRandomValues(new Uint8Array(numBytes));
+
 export const createKey = () =>
   window.crypto.subtle.generateKey(
     {
