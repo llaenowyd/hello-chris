@@ -39,8 +39,8 @@ const Encrypt: React.FC<{
     setPlaintext(ev.target.value);
   };
 
-  const onReuseNonceChange = (ev: ChangeEvent<HTMLInputElement>): void => {
-    setImproperlyReuseNonce('on' === ev.target.value);
+  const toggleImproperlyReuseNonce = (): void => {
+    setImproperlyReuseNonce((prev) => !prev);
   };
 
   useEncryptEffect(
@@ -69,12 +69,17 @@ const Encrypt: React.FC<{
             <input
               id="reuseNonceCheckbox"
               type="checkbox"
-              checked={improperlyReuseNonce}
-              onChange={onReuseNonceChange}
+              defaultChecked={improperlyReuseNonce}
+              onClick={toggleImproperlyReuseNonce}
             />
-            <label htmlFor="reuseNonceCheckbox">improperly reuse nonce</label>
+            <label
+              className={classes.label}
+              htmlFor="reuseNonceCheckbox"
+              onClick={toggleImproperlyReuseNonce}
+            >
+              improperly reuse nonce
+            </label>
           </div>
-          <input type="button" value="Encrypt →" onClick={() => {}} />
         </div>
         <div className={classes.cryptoPanel}>
           <div>

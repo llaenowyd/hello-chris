@@ -28,5 +28,5 @@ export const useEncryptEffect = (
       .catch((e) => {
         console.error(e?.toString?.(), e);
       });
-  }, [secretKey, plaintext]);
+  }, [secretKey, plaintext, improperlyReuseNonce]);
 };
