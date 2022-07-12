@@ -1,16 +1,17 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import classNames from 'classnames';
 
 import { useEncryptEffect } from '../hooks/useEncryptEffect';
-import { algoParams } from '../util/algoParams';
 import { arrayBufferToBase64 } from '../util/base64';
-import { encryptMessage, createKey, exportKey } from '../util/crypt';
+import { createKey, exportKey } from '../util/crypt';
 import { splitEvery } from '../util/splitEvery';
 
 import classes from './Encrypt.module.css';
 
 const Encrypt: React.FC<{
   className?: string;
+  nonce: ArrayBuffer;
+  setNonce: (buf: ArrayBuffer) => void;
   secretKey: string;
   setSecretKey: (s: string) => void;
   plaintext: string;
@@ -19,6 +20,8 @@ const Encrypt: React.FC<{
   setCryptogram: (s: string) => void;
 }> = ({
   className,
+  nonce,
+  setNonce,
   secretKey,
   setSecretKey,
   plaintext,
@@ -26,7 +29,9 @@ const Encrypt: React.FC<{
   cryptogram,
   setCryptogram,
 }) => {
-  const doEncrypt = async (): Promise<void> => {
+  const [improperlyReuseNonce, setImproperlyReuseNonce] = useState(false);
+
+  const createNewKey = async (): Promise<void> => {
     return createKey().then(exportKey).then(setSecretKey);
   };
 
@@ -34,25 +39,47 @@ const Encrypt: React.FC<{
     setPlaintext(ev.target.value);
   };
 
-  useEncryptEffect(plaintext, secretKey, setCryptogram);
+  const onReuseNonceChange = (ev: ChangeEvent<HTMLInputElement>): void => {
+    setImproperlyReuseNonce('on' === ev.target.value);
+  };
+
+  useEncryptEffect(
+    plaintext,
+    nonce,
+    setNonce,
+    secretKey,
+    setCryptogram,
+    improperlyReuseNonce
+  );
 
   return (
     <div className={classNames(classes.container, className)}>
       <div className={classes.panels}>
         <div className={classes.documentPanel}>
-          <textarea rows={35} cols={80} onChange={onPlaintextChange}>
-            {plaintext}
-          </textarea>
+          <textarea
+            rows={35}
+            cols={80}
+            onChange={onPlaintextChange}
+            defaultValue={plaintext}
+          />
         </div>
         <div className={classes.buttonPanel}>
-          <input type="button" value="Encrypt →" onClick={doEncrypt} />
+          <input type="button" value="New Key" onClick={createNewKey} />
+          <div className={classes.checkboxCluster}>
+            <input
+              id="reuseNonceCheckbox"
+              type="checkbox"
+              checked={improperlyReuseNonce}
+              onChange={onReuseNonceChange}
+            />
+            <label htmlFor="reuseNonceCheckbox">improperly reuse nonce</label>
+          </div>
+          <input type="button" value="Encrypt →" onClick={() => {}} />
         </div>
         <div className={classes.cryptoPanel}>
           <div>
             IV:{' '}
-            <span className={classes.key}>
-              {arrayBufferToBase64(algoParams.iv)}
-            </span>
+            <span className={classes.key}>{arrayBufferToBase64(nonce)}</span>
           </div>
           <div>
             Key: <span className={classes.key}>{secretKey}</span>

@@ -10,6 +10,7 @@ import classes from './Reader.module.css';
 const Reader: React.FC<{
   className?: string;
   cryptogram: string;
+  nonce: ArrayBuffer;
   secretKey: string;
   setSecretKey: (s: string) => void;
   plaintext: string;
@@ -17,18 +18,23 @@ const Reader: React.FC<{
 }> = ({
   className,
   cryptogram,
+  nonce,
   secretKey,
   setSecretKey,
   plaintext,
   setPlaintext,
 }) => {
-  useDecryptEffect(cryptogram, secretKey, setPlaintext);
+  useDecryptEffect(nonce, cryptogram, secretKey, setPlaintext);
 
   const markdown = useMarkdown(plaintext);
 
   return (
     <div className={classNames(classes.container, className)}>
-      <Controls secretKey={secretKey} setSecretKey={setSecretKey} />
+      <Controls
+        secretKey={secretKey}
+        setSecretKey={setSecretKey}
+        nonce={nonce}
+      />
       <div className={classes.markdown}>{markdown}</div>
     </div>
   );

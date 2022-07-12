@@ -1,4 +1,3 @@
-import { algoParams } from './algoParams';
 import { arrayBufferToBase64, base64ToArrayBuffer } from './base64';
 import { bufferToString, stringToBuffer } from './buffers';
 
@@ -20,26 +19,44 @@ export const exportKey = (key: CryptoKey): Promise<string> =>
 
 export const importKey = async (keyStr: string): Promise<CryptoKey> =>
   Promise.resolve(base64ToArrayBuffer(keyStr)).then((buffer) =>
-    window.crypto.subtle.importKey('raw', buffer, algoParams, true, [
+    window.crypto.subtle.importKey('raw', buffer, 'AES-GCM', true, [
       'decrypt',
       'encrypt',
     ])
   );
 
 export const decryptMessage = async (
+  nonce: ArrayBuffer,
   key: CryptoKey,
   ciphertext: string
 ): Promise<string> =>
   Promise.resolve(base64ToArrayBuffer(ciphertext))
-    .then((buffer) => window.crypto.subtle.decrypt(algoParams, key, buffer))
+    .then((buffer) =>
+      window.crypto.subtle.decrypt(
+        {
+          name: 'AES-GCM',
+          iv: nonce,
+        },
+        key,
+        buffer
+      )
+    )
     .then(bufferToString);
 
 export const encryptMessage = async (
+  nonce: ArrayBuffer,
   key: CryptoKey,
   plaintext: string
 ): Promise<string> =>
   Promise.resolve(stringToBuffer(plaintext))
     .then((buffer) => {
-      return window.crypto.subtle.encrypt(algoParams, key, buffer);
+      return window.crypto.subtle.encrypt(
+        {
+          name: 'AES-GCM',
+          iv: nonce,
+        },
+        key,
+        buffer
+      );
     })
     .then(arrayBufferToBase64);

@@ -1,4 +1,11 @@
 .container {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+
+.nonce {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 85%;
+  color: #555;
 }

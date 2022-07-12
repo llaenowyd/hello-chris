@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
+import useNonce from '../hooks/useNonce';
 import encryptedMarkdownContent from '../markdown/message-input';
 
 import Reader from './Reader';
 import Encrypt from './Encrypt';
 
 const MainView: React.FC = () => {
+  const [nonce, setNonce] = useNonce();
   const [secretKey, setSecretKey] = useState(
     'EZPMNg19bhjRkn522eX6877hM1F8t/pr7tTIUVDyD1A='
   );
@@ -23,6 +25,7 @@ const MainView: React.FC = () => {
       <TabPanel>
         <Reader
           cryptogram={cryptogram}
+          nonce={nonce}
           secretKey={secretKey}
           setSecretKey={setSecretKey}
           plaintext={plaintext}
@@ -31,6 +34,8 @@ const MainView: React.FC = () => {
       </TabPanel>
       <TabPanel>
         <Encrypt
+          nonce={nonce}
+          setNonce={setNonce}
           secretKey={secretKey}
           setSecretKey={setSecretKey}
           plaintext={plaintext}

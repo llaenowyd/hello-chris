@@ -21,7 +21,15 @@
 }
 
 .buttonPanel {
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
+  gap: 1rem;
+}
+
+.checkboxCluster {
+  display: flex;
+  align-items: flex-end;
 }
 
 .cryptoPanel {

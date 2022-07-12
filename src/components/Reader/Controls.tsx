@@ -1,11 +1,13 @@
 import React from 'react';
+import { arrayBufferToBase64 } from '../../util/base64';
 
 import classes from './Controls.module.css';
 
 const Controls: React.FC<{
   secretKey: string;
   setSecretKey: (s: string) => void;
-}> = ({ secretKey, setSecretKey }) => {
+  nonce: ArrayBuffer;
+}> = ({ secretKey, setSecretKey, nonce }) => {
   return (
     <div className={classes.container}>
       🔑
@@ -14,6 +16,7 @@ const Controls: React.FC<{
         value={secretKey}
         onChange={(ev) => setSecretKey(ev.target.value)}
       />
+      <div className={classes.nonce}>Nonce: {arrayBufferToBase64(nonce)}</div>
     </div>
   );
 };
