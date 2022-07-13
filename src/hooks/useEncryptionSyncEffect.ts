@@ -42,6 +42,7 @@ export const useEncryptSyncEffect = () => {
     if (mode !== 'Encrypt') return;
 
     const nextNonce = improperlyReuseNonce ? nonce : createNonce();
+
     if (!improperlyReuseNonce) {
       setNonce(nextNonce); // TBD clarify chain of effect
     }

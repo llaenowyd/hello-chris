@@ -68,19 +68,31 @@ const selectors = {
     get: ({ get }) => {
       const secret = get(atoms.secret);
 
+      if (!secret) throw new Error('no secret');
+
       return arrayBufferToBase64(secret);
     },
     set: ({ set }, newValue) => {
-      set(atoms.secret, pad(base64ToArrayBuffer(newValue as string)));
+      try {
+        set(atoms.secret, pad(base64ToArrayBuffer(newValue as string)));
+      } catch (e) {
+        console.error(e);
+        set(atoms.secret, new Uint8Array(32));
+      }
     },
   }),
   secretKey: selector({
     key: 'secretKey',
     get: async ({ get }) => {
+      const secret = get(atoms.secret);
+
+      if (!secret) return null;
+
       try {
-        return await bufferToKey(get(atoms.secret));
+        return await bufferToKey(secret);
       } catch (e) {
         console.error(e);
+        return null;
       }
     },
   }),

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import classNames from 'classnames';
 
@@ -27,9 +27,9 @@ const Encrypt: React.FC<{
     setPlaintext(ev.target.value);
   };
 
-  const toggleImproperlyReuseNonce = (): void => {
-    setImproperlyReuseNonce((prev: boolean) => !prev);
-  };
+  const toggleImproperlyReuseNonce = useCallback((): void => {
+    setImproperlyReuseNonce(!improperlyReuseNonce);
+  }, [improperlyReuseNonce, setImproperlyReuseNonce]);
 
   return (
     <div className={classNames(classes.container, className)}>
@@ -51,11 +51,7 @@ const Encrypt: React.FC<{
               defaultChecked={improperlyReuseNonce}
               onClick={toggleImproperlyReuseNonce}
             />
-            <label
-              className={classes.label}
-              htmlFor="reuseNonceCheckbox"
-              onClick={toggleImproperlyReuseNonce}
-            >
+            <label className={classes.label} htmlFor="reuseNonceCheckbox">
               improperly reuse nonce
             </label>
           </div>
