@@ -1,50 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { RecoilRoot, useRecoilState } from 'recoil';
 import 'react-tabs/style/react-tabs.css';
 
-import useNonce from '../hooks/useNonce';
-import encryptedMarkdownContent from '../markdown/message-input';
+import { useSyncEffects } from '../hooks/useSyncEffects';
+import { store } from '../store';
 
 import Reader from './Reader';
 import Encrypt from './Encrypt';
+import { useErrorBoundary } from 'react-use-error-boundary';
 
-const MainView: React.FC = () => {
-  const [nonce, setNonce] = useNonce();
-  const [secretKey, setSecretKey] = useState(
-    'EZPMNg19bhjRkn522eX6877hM1F8t/pr7tTIUVDyD1A='
-  );
-  const [plaintext, setPlaintext] = useState('');
-  const [cryptogram, setCryptogram] = useState(() => encryptedMarkdownContent);
+const UnconnectedMainView: React.FC = () => {
+  const [tabIndex, setTabIndex] = useRecoilState(store.tabIndex);
+
+  useSyncEffects();
 
   return (
-    <Tabs>
+    <Tabs selectedIndex={tabIndex} onSelect={setTabIndex}>
       <TabList>
         <Tab>Reader</Tab>
         <Tab>Encrypt</Tab>
       </TabList>
       <TabPanel>
-        <Reader
-          cryptogram={cryptogram}
-          nonce={nonce}
-          secretKey={secretKey}
-          setSecretKey={setSecretKey}
-          plaintext={plaintext}
-          setPlaintext={setPlaintext}
-        />
+        <Reader />
       </TabPanel>
       <TabPanel>
-        <Encrypt
-          nonce={nonce}
-          setNonce={setNonce}
-          secretKey={secretKey}
-          setSecretKey={setSecretKey}
-          plaintext={plaintext}
-          setPlaintext={setPlaintext}
-          cryptogram={cryptogram}
-          setCryptogram={setCryptogram}
-        />
+        <Encrypt />
       </TabPanel>
     </Tabs>
+  );
+};
+
+const RawMainView: React.FC = () => (
+  <RecoilRoot>
+    <React.Suspense fallback={<div>⏰</div>}>
+      <UnconnectedMainView />
+    </React.Suspense>
+  </RecoilRoot>
+);
+
+const MainView: React.FC = () => {
+  const [error] = useErrorBoundary();
+
+  return error ? (
+    <div>
+      Error:{' '}
+      {(error as Error)?.message ?? (error as object)?.toString?.() ?? error}
+    </div>
+  ) : (
+    <RawMainView />
   );
 };
 

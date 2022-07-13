@@ -44,3 +44,7 @@
   font-size: 80%;
   font-family: 'Courier New', Courier, monospace;
 }
+
+.label {
+  user-select: none;
+}
