@@ -17,13 +17,14 @@ export const createKey = () =>
 export const exportKey = (key: CryptoKey): Promise<string> =>
   window.crypto.subtle.exportKey('raw', key).then(arrayBufferToBase64);
 
-export const importKey = async (keyStr: string): Promise<CryptoKey> =>
-  Promise.resolve(base64ToArrayBuffer(keyStr)).then((buffer) =>
-    window.crypto.subtle.importKey('raw', buffer, 'AES-GCM', true, [
-      'decrypt',
-      'encrypt',
-    ])
-  );
+export const bufferToKey = async (buffer: ArrayBuffer): Promise<CryptoKey> =>
+  window.crypto.subtle.importKey('raw', buffer, 'AES-GCM', true, [
+    'decrypt',
+    'encrypt',
+  ]);
+
+export const base64ToKey = async (keyStr: string): Promise<CryptoKey> =>
+  Promise.resolve(base64ToArrayBuffer(keyStr)).then(bufferToKey);
 
 export const decryptMessage = async (
   nonce: ArrayBuffer,

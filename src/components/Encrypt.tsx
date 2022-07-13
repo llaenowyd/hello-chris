@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import classNames from 'classnames';
 
-import { useEncryptEffect } from '../hooks/useEncryptEffect';
-import { arrayBufferToBase64 } from '../util/base64';
+import { store } from '../store';
 import { createKey, exportKey } from '../util/crypt';
 import { splitEvery } from '../util/splitEvery';
 
@@ -10,29 +10,17 @@ import classes from './Encrypt.module.css';
 
 const Encrypt: React.FC<{
   className?: string;
-  nonce: ArrayBuffer;
-  setNonce: (buf: ArrayBuffer) => void;
-  secretKey: string;
-  setSecretKey: (s: string) => void;
-  plaintext: string;
-  setPlaintext: (s: string) => void;
-  cryptogram: string;
-  setCryptogram: (s: string) => void;
-}> = ({
-  className,
-  nonce,
-  setNonce,
-  secretKey,
-  setSecretKey,
-  plaintext,
-  setPlaintext,
-  cryptogram,
-  setCryptogram,
-}) => {
-  const [improperlyReuseNonce, setImproperlyReuseNonce] = useState(false);
+}> = ({ className }) => {
+  const ciphertext = useRecoilValue(store.ciphertext);
+  const [improperlyReuseNonce, setImproperlyReuseNonce] = useRecoilState(
+    store.improperlyReuseNonce
+  );
+  const nonceBase64 = useRecoilValue(store.nonceBase64);
+  const [plaintext, setPlaintext] = useRecoilState(store.plaintext);
+  const [secretBase64, setSecretBase64] = useRecoilState(store.secretBase64);
 
   const createNewKey = async (): Promise<void> => {
-    return createKey().then(exportKey).then(setSecretKey);
+    return createKey().then(exportKey).then(setSecretBase64);
   };
 
   const onPlaintextChange = (ev: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -40,17 +28,8 @@ const Encrypt: React.FC<{
   };
 
   const toggleImproperlyReuseNonce = (): void => {
-    setImproperlyReuseNonce((prev) => !prev);
+    setImproperlyReuseNonce((prev: boolean) => !prev);
   };
-
-  useEncryptEffect(
-    plaintext,
-    nonce,
-    setNonce,
-    secretKey,
-    setCryptogram,
-    improperlyReuseNonce
-  );
 
   return (
     <div className={classNames(classes.container, className)}>
@@ -83,16 +62,15 @@ const Encrypt: React.FC<{
         </div>
         <div className={classes.cryptoPanel}>
           <div>
-            IV:{' '}
-            <span className={classes.key}>{arrayBufferToBase64(nonce)}</span>
+            IV: <span className={classes.key}>{nonceBase64}</span>
           </div>
           <div>
-            Key: <span className={classes.key}>{secretKey}</span>
+            Key: <span className={classes.key}>{secretBase64}</span>
           </div>
           Cryptogram:
           <br />
           <div className={classes.brick}>
-            {splitEvery(cryptogram ?? '', 80).map((line, i) => (
+            {splitEvery(ciphertext ?? '', 80).map((line, i) => (
               <React.Fragment key={i}>
                 <span>{line}</span>
                 <br />
